@@ -14,7 +14,7 @@ document.addEventListener("mousemove", (event) => {
   target.style.left = `${x}px`;
   target.style.top = `${y}px`;
 
-  tag.style.left = `${x + 10}px`;
-  tag.style.top = `${y - 20}px`;
+  tag.style.left = `${x}px`;
+  tag.style.top = `${y}px`;
   tag.innerHTML = `${x}px, ${y}px`;
 });
