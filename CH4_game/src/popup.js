@@ -11,16 +11,17 @@ export default class PopUp {
     });
   }
 
+  // callback function 받아주기
   setClickListener(onClick) {
     this.onClick = onClick;
+  }
+
+  hide() {
+    this.popUp.classList.add("pop-up--hide");
   }
 
   showWithText(text) {
     this.popUpText.innerText = text;
     this.popUp.classList.remove("pop-up--hide");
-  }
-
-  hide() {
-    this.popUp.classList.add("pop-up--hide");
   }
 }

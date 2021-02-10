@@ -1,7 +1,5 @@
 "use strict";
-
-const carrotSound = new Audio("./sound/carrot_pull.mp3");
-const CARROT_SIZE = 80;
+import * as sound from "./sound.js";
 
 export default class Field {
   constructor(carrotCount, bugCount) {
@@ -14,11 +12,29 @@ export default class Field {
 
   init() {
     this.field.innerHTML = "";
+    // 벌레와 당근을 생성한뒤 field에 추가해줌
     this._addItem("carrot", this.carrotCount, "img/carrot.png");
     this._addItem("bug", this.bugCount, "img/bug.png");
   }
 
+  onClick(event) {
+    const target = event.target;
+    if (target.matches(".carrot")) {
+      // 당근!!
+      target.remove();
+      sound.playCarrot();
+      this.onItemClick && this.onItemClick("carrot");
+    } else if (target.matches(".bug")) {
+      this.onItemClick && this.onItemClick("bug");
+    }
+  }
+
+  setClickListener(onItemClick) {
+    this.onItemClick = onItemClick;
+  }
+
   _addItem(className, count, imgPath) {
+    const CARROT_SIZE = 80;
     const x1 = 0;
     const y1 = 0;
     const x2 = this.fieldRect.width - CARROT_SIZE;
@@ -35,26 +51,6 @@ export default class Field {
       this.field.appendChild(item);
     }
   }
-
-  setClickListener(onItemClick) {
-    this.onItemClick = onItemClick;
-  }
-
-  onClick(event) {
-    const target = event.target;
-    if (target.matches(".carrot")) {
-      target.remove();
-      playSound(carrotSound);
-      this.onItemClick && this.onItemClick("carrot");
-    } else if (target.matches(".bug")) {
-      this.onItemClick && this.onItemClick("bug");
-    }
-  }
-}
-
-function playSound(sound) {
-  sound.currentTime = 0;
-  sound.play();
 }
 
 function randomNumber(min, max) {
