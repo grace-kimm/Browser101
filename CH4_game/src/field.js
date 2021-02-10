@@ -17,7 +17,7 @@ export default class Field {
     this._addItem("bug", this.bugCount, "img/bug.png");
   }
 
-  onClick(event) {
+  onClick = (event) => {
     const target = event.target;
     if (target.matches(".carrot")) {
       // 당근!!
@@ -27,7 +27,7 @@ export default class Field {
     } else if (target.matches(".bug")) {
       this.onItemClick && this.onItemClick("bug");
     }
-  }
+  };
 
   setClickListener(onItemClick) {
     this.onItemClick = onItemClick;
